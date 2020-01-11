@@ -1,18 +1,97 @@
-<html>  
-<head>  
-    <title>FlaskTextFileStorer</title>  
-</head>  
-<body>  
-    <h1>FlaskTextFileStorer</h1>
-    <p>A Flask App written in Python which stores text files</p>
-    <ul>
-        {% for i in flist %}
-        <li>
-            <a href="{{ flist[loop.index0]['url'] }}">{{ flist[loop.index0]['title'] }}</a>
-            <p class="text-left">Published On:{{ flist[loop.index0]['date'] }}</p>
-        </li>
-        {% endfor %}
-    </ul>
-    <button onclick="window.location.href = '/upload';">Upload Files</button>
-</body>  
-</html>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FlaskTextFileStorer</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .list-group{
+        max-height: 500px;
+        margin-bottom: 10px;
+        overflow:auto;
+        overflow-y:auto;
+        -webkit-overflow-scrolling: touch;
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">FlaskTextFileStorer</a>
+    </div>
+  </div>
+</nav>
+
+<div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Upload a File</h4>
+        </div>
+        <div class="modal-body">
+            <form action = "/upload" method = "post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Title here" name="fname" value="My File">
+                    
+                </div>
+
+                <div class="form-group">
+                    <input type="file" name="file" class="form-control"/>
+                </div>
+                <input type = "submit" value="Upload">
+            </form>  
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>     
+    </div>
+      </div>
+      
+    </div>
+
+  <div class="jumbotron text-center">
+        <h1>FlaskTextFileStorer</h1>
+        <p>A Flask App written in Python which stores text files</p>
+        <a href="/upload" class="btn btn-success" role="button"><i class="fa fa-home"></i>Upload Files</a>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+  </div>
+  
+  <div class="container text-center">
+    <div class="row">
+        <div class="col-sm-6 nopadding">
+        <ul class="list-group">
+            {% for i in flist %}
+            <li class="list-group-item">
+                <a href="{{ flist[loop.index0]['url'] }}">{{ flist[loop.index0]['title'] }}</a>
+                <br>
+                <small>Published On:{{ flist[loop.index0]['date'] }}</small>
+            </li>
+            {% endfor %}
+    
+        </ul>
+        </div>
+
+        <div class="col-sm-6 nopadding">
+            <h1>About the project</h1>
+            <h4>This is a simple Flask Web App written in Python. This app lets you store, view and download text files</h4>
+            <h4>To upload a file, click on upload a file</h4>
+        </div>
+    </div>
+  </div>
+  <footer class="footer bg-primary navbar-fixed-bottom">
+        <div class="container text-center">
+          <small>Developed by Vishal Balasubramanian</small>
+        </div>
+</footer>
+</body>
+</html>
