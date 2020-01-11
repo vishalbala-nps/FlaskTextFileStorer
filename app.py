@@ -1,15 +1,15 @@
 from flask import *
 from datetime import datetime
 import json
+import time
+
 app = Flask(__name__)  
  
 #Functions
-def read_file(fname, ashtml=False):
+def read_file(fname):
     title = fname.split("@")[0]
     fcontent = open("./text_files/"+fname)
     content = fcontent.read()
-    if ashtml == True:
-        content = content.replace("\n","<br />")
     return (title,content)
 
 def add_in_json(fname, title, tstamp):
@@ -17,7 +17,9 @@ def add_in_json(fname, title, tstamp):
         flist = json.load(f)
     print(flist)
     date_pub = datetime.fromtimestamp(tstamp)
-    flist.append({"name":fname,"title":title,"url":"/view?fname="+fname,"date":str(date_pub)})
+    date_pub = date_pub.strftime("%Y-%m-%d %H:%M:%S")
+    print(date_pub)
+    flist.append({"name":fname,"title":title,"url":"/view?fname="+fname,"date":date_pub})
     with open("./text_files/files.json", 'w') as f:
         json.dump(flist, f)
 
@@ -28,21 +30,19 @@ def main():
         flist = json.load(f)
     return render_template("index.html", flist=flist)  
  
-@app.route('/upload', methods = ['GET' ,'POST'])  
+@app.route('/upload', methods = ['POST'])  
 def uploadfile():  
     if request.method == 'POST':  
         f = request.files['file']
         title = request.form.get("fname")
         print(title)
         tstamp = datetime.now().timestamp()
-        #title = title.replace(" ","_")
         fname = title + "@" + str(int(tstamp))
         f.save("./text_files/"+fname)
         add_in_json(fname, title,tstamp)
 
         return redirect("/view?fname="+fname)
-    elif request.method == 'GET':
-        return render_template("upload_file.html")
+
 
 @app.route('/view')
 def viewfile():
