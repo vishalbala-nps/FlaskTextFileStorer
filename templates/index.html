@@ -5,6 +5,14 @@
 <body>  
     <h1>FlaskTextFileStorer</h1>
     <p>A Flask App written in Python which stores text files</p>
+    <ul>
+        {% for i in flist %}
+        <li>
+            <a href="{{ flist[loop.index0]['url'] }}">{{ flist[loop.index0]['title'] }}</a>
+            <p class="text-left">Published On:{{ flist[loop.index0]['date'] }}</p>
+        </li>
+        {% endfor %}
+    </ul>
     <button onclick="window.location.href = '/upload';">Upload Files</button>
 </body>  
 </html>  

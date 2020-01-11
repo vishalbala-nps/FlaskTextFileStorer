@@ -1,5 +1,6 @@
 text_files/*
 !text_files/README.md
+!text_files/files.json
 .vscode
 __pycache__
 env
