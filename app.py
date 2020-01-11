@@ -31,7 +31,7 @@ def uploadfile():
         f.save("./text_files/"+fname) 
 
         content = read_file(fname)[1]
-        return render_template("details.html", title=title, content=content)
+        return render_template("details.html", title=title, content=content, downloadurl="/download_file?fname="+fname)
 
 @app.route('/view')
 def viewfile():
@@ -42,7 +42,18 @@ def viewfile():
     except:
         return "File Does not Exist!"
         
-    return render_template("details.html", title=title, content=content)
+    return render_template("details.html", title=title, content=content, downloadurl="/download_file?fname="+fname)
+
+@app.route('/download_file')
+def downloadfile():
+    fname = request.args.get('fname')
+    title = fname.split("@")[0]
+    try:
+        return send_file("./text_files/"+fname, attachment_filename=title+".txt", as_attachment=True)
+    except:
+        return "File Does not Exist!"
+
+
   
 if __name__ == '__main__':  
     app.run(debug=True, port=8080)  

@@ -1,0 +1,4 @@
+text_files/*
+.vscode
+__pycache__
+env
