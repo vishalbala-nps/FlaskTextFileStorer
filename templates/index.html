@@ -28,7 +28,7 @@
   </div>
 </nav>
 
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="upload" role="dialog">
         <div class="modal-dialog">
 
         <div class="modal-content">
@@ -47,11 +47,11 @@
                 <div class="form-group">
                     <input type="file" name="file" class="form-control"/>
                 </div>
-                <input type = "submit" value="Upload">
+
+                <div class="modal-footer">
+                    <input type = "submit" value="Upload File" class="btn btn-success">
+                </div>
             </form>  
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
         </div>     
     </div>
@@ -62,8 +62,7 @@
   <div class="jumbotron text-center">
         <h1>FlaskTextFileStorer</h1>
         <p>A Flask App written in Python which stores text files</p>
-        <a href="/upload" class="btn btn-success" role="button"><i class="fa fa-home"></i>Upload Files</a>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#upload"><span class="glyphicon glyphicon-upload"></span> Upload Text File</button>
   </div>
   
   <div class="container text-center">
